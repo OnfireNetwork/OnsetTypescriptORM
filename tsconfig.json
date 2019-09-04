@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": [
+      "esnext"
+    ],
+    "strict": true
+  },
+  "include": [
+    "onset/**/*",
+    "node_modules/@onfire-network/onset-typescript-mariadb/onset/**/*"
+  ],
+  "tstl": {
+    "luaTarget": "JIT"
+  }
+}

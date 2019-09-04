@@ -1,0 +1,23 @@
+{
+  "name": "@onfire-network/onset-typescript-orm",
+  "version": "1.0.0",
+  "description": "Onset MariaDB ORM",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OnfireNetwork/OnsetTypescriptORM.git"
+  },
+  "keywords": [
+    "onset",
+    "mariadb",
+    "orm"
+  ],
+  "author": "Onfire Network",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OnfireNetwork/OnsetTypescriptORM/issues"
+  },
+  "homepage": "https://github.com/OnfireORM/OnsetTypescriptORM#readme",
+  "dependencies": {
+    "@onfire-network/onset-typescript-mariadb": "^1.0.0"
+  }
+}
