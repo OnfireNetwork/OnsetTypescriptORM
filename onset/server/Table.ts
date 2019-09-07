@@ -5,13 +5,13 @@ class Table<T> {
     private idColumn = "id";
     private autoIncrement = true;
     constructor(private con: MariaDB.Connection, private tableName: string) {
-        this.con.queryAsync("SHOW COLUMNS FROM ?", (result) => {
+        this.con.queryAsync("SHOW COLUMNS FROM `"+tableName+"`;", (result) => {
             while (result.next()) {
                 let type = this.getColumnType(result.getString("Type"));
                 if (type !== undefined)
                     this.columns.set(result.getString("Field"), type);
             }
-        }, this.tableName);
+        });
     }
     public getConnection(): MariaDB.Connection {
         return this.con;
@@ -27,11 +27,11 @@ class Table<T> {
         this.autoIncrement = autoIncrement;
         return this;
     }
-    public get(query: string, callback: (objects: T[]) => void, ...values: any[]): void {
-        this.con.queryAsync(query,result=>{callback(this.resultToArray(result));},values);
+    public get(filter: string, callback: (objects: T[]) => void, ...values: any[]): void {
+        this.con.queryAsync("SELECT * FROM `"+this.tableName+"` "+filter+';',result=>{callback(this.resultToArray(result));},values);
     }
-    public getSync(query: string, ...values: any[]): T[] {
-        let result = this.con.querySync(query, values);
+    public getSync(filter: string, ...values: any[]): T[] {
+        let result = this.con.querySync("SELECT * FROM `"+this.tableName+"` "+filter+';', values);
         let entries = this.resultToArray(result);
         result.close();
         return entries;
