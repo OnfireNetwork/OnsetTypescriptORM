@@ -7,9 +7,9 @@ class Table<T> {
     constructor(private con: MariaDB.Connection, private tableName: string) {
         this.con.queryAsync("SHOW COLUMNS FROM `"+tableName+"`;", (result) => {
             while (result.next()) {
-                let type = this.getColumnType(result.getString("Type"));
+                let type = this.getColumnType(result.getString("COLUMN_TYPE"));
                 if (type !== undefined)
-                    this.columns.set(result.getString("Field"), type);
+                    this.columns.set(result.getString("COLUMN_NAME"), type);
             }
         });
     }
