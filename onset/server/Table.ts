@@ -129,11 +129,10 @@ class Table<T> {
                     query+=',';
                     valueQuery+=',';
                 }
+                query+='`'+key+'`';
                 if(indexObject[key] === null){
-                    query+='`'+key+'`';
                     valueQuery+='NULL';
                 }else{
-                    query+='`'+key+'`=?';
                     valueQuery+='?';
                     values.push(indexObject[key]);
                 }
