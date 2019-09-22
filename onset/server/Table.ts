@@ -11,7 +11,7 @@ class Table<T> {
                 if (type !== undefined)
                     this.columns.set(result.getString("COLUMN_NAME"), type);
             }
-        });
+        }, []);
     }
     public getConnection(): MariaDB.Connection {
         return this.con;
