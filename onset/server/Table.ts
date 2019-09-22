@@ -7,9 +7,9 @@ class Table<T> {
     constructor(private con: MariaDB.Connection, private tableName: string) {
         this.con.queryAsync("SHOW COLUMNS FROM `"+tableName+"`;", (result) => {
             while (result.next()) {
-                let type = this.getColumnType(result.getString("COLUMN_TYPE"));
+                let type = this.getColumnType(result.getString("Type"));
                 if (type !== undefined)
-                    this.columns.set(result.getString("COLUMN_NAME"), type);
+                    this.columns.set(result.getString("Field"), type);
             }
         }, []);
     }
@@ -62,11 +62,11 @@ class Table<T> {
     }
     public delete(object: T, callback?: () => void): void {
         let indexObject = object as {[key: string]: any};
-        this.con.queryAsync('DELETE FROM `'+this.tableName+'` WHERE `'+this.idColumn+'`=?;',result=>{if(callback !== undefined){callback();}},indexObject[this.idColumn]);
+        this.con.queryAsync('DELETE FROM `'+this.tableName+'` WHERE `'+this.idColumn+'`=\'?\';',result=>{if(callback !== undefined){callback();}},indexObject[this.idColumn]);
     }
     public deleteSync(object: T): void {
         let indexObject = object as {[key: string]: any};
-        this.con.querySync('DELETE FROM `'+this.tableName+'` WHERE `'+this.idColumn+'`=?;',indexObject[this.idColumn]);
+        this.con.querySync('DELETE FROM `'+this.tableName+'` WHERE `'+this.idColumn+'`=\'?\';',indexObject[this.idColumn]);
     }
     private getColumnType(input: string): ColumnType | undefined {
         input = input.toLowerCase();
@@ -107,12 +107,12 @@ class Table<T> {
                 if(indexObject[key] === null){
                     query+='`'+key+'`=NULL';
                 }else{
-                    query+='`'+key+'`=?';
+                    query+='`'+key+'`=\'?\'';
                     values.push(indexObject[key]);
                 }
             }
         });
-        query = 'UPDATE `'+this.tableName+'` SET ' + query + ' WHERE `'+this.idColumn+'`=?;';
+        query = 'UPDATE `'+this.tableName+'` SET ' + query + ' WHERE `'+this.idColumn+'`=\'?\';';
         values.push(indexObject[this.idColumn]);
         return [query,values];
     }
@@ -133,7 +133,7 @@ class Table<T> {
                 if(indexObject[key] === null){
                     valueQuery+='NULL';
                 }else{
-                    valueQuery+='?';
+                    valueQuery+='\'?\'';
                     values.push(indexObject[key]);
                 }
             }
