@@ -70,9 +70,9 @@ class Table<T> {
     }
     private getColumnType(input: string): ColumnType | undefined {
         input = input.toLowerCase();
-        if (input.startsWith("int")) {
+        if (input.startsWith("int") || input.startsWith("bigint")) {
             return ColumnType.INT;
-        } else if (input.startsWith("varchar")) {
+        } else if (input.startsWith("varchar") || input.startsWith("text") || input.startsWith("enum")) {
             return ColumnType.STRING;
         } else if (input.startsWith("float")) {
             return ColumnType.FLOAT;
