@@ -5,13 +5,12 @@ class Table<T> {
     private idColumn = "id";
     private autoIncrement = true;
     constructor(private con: MariaDB.Connection, private tableName: string) {
-        this.con.queryAsync("SHOW COLUMNS FROM `"+tableName+"`;", (result) => {
-            while (result.next()) {
-                let type = this.getColumnType(result.getString("Type"));
-                if (type !== undefined)
-                    this.columns.set(result.getString("Field"), type);
-            }
-        }, []);
+        let result = this.con.querySync("SHOW COLUMNS FROM `"+tableName+"`;", []);
+        while (result.next()) {
+            let type = this.getColumnType(result.getString("Type"));
+            if (type !== undefined)
+                this.columns.set(result.getString("Field"), type);
+        }
     }
     public getConnection(): MariaDB.Connection {
         return this.con;

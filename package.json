@@ -1,6 +1,6 @@
 {
   "name": "@onfire-network/onset-typescript-orm",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Onset MariaDB ORM",
   "repository": {
     "type": "git",
