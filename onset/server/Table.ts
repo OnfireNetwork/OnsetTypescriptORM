@@ -74,7 +74,7 @@ class Table<T> {
             return ColumnType.INT;
         } else if (input.startsWith("varchar") || input.startsWith("text") || input.startsWith("enum")) {
             return ColumnType.STRING;
-        } else if (input.startsWith("float")) {
+        } else if (input.startsWith("float") || input.startsWith("double")) {
             return ColumnType.FLOAT;
         }
     }
