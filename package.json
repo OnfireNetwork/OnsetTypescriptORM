@@ -1,6 +1,6 @@
 {
   "name": "@onfire-network/onset-typescript-orm",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Onset MariaDB ORM",
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/OnfireORM/OnsetTypescriptORM#readme",
   "dependencies": {
-    "@onfire-network/onset-typescript-mariadb": "^1.0.2",
+    "@onfire-network/onset-typescript-mariadb": "^1.0.3",
     "typescript-to-lua": "^0.27.1"
   }
 }
